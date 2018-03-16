@@ -1,0 +1,17 @@
+version: '2.3'
+services:
+  classbot:
+    command: "errbot"
+    build:
+      context: "."
+    image: "spkane/classbot:latest"
+    networks:
+      - my-net
+    volumes:
+      - ./config.py:/home/errbot/config.py
+      - ./data:/home/errbot/data
+      - ./plugins:/home/errbot/plugins
+networks:
+  my-net:
+    driver: bridge
+
