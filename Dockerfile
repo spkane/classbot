@@ -1,5 +1,7 @@
 FROM jfloff/alpine-python:recent-slim
 
+COPY scripts/entrypoint.sh /entrypoint.sh
+
 RUN /entrypoint.sh \
   -p pipenv \
   -p https://github.com/errbotio/errbot/archive/master.zip \
@@ -26,8 +28,8 @@ RUN /entrypoint.sh \
 
 COPY scripts/runas.sh /usr/local/sbin/runas
 
-COPY scripts/start.sh /bin/start.sh
+COPY scripts/start.sh /bin/start
 
 #VOLUME ["/home/errbot/data/"]
 
-ENTRYPOINT ["/bin/start.sh"]
+ENTRYPOINT ["/bin/start"]
