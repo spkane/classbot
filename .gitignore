@@ -1,6 +1,6 @@
 .git
 .vscode
 config.py
-/data
+data/
 **/__pycache__
 !data/.git_keep
