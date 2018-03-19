@@ -42,3 +42,20 @@ Some plugins require additional dependencies that may not be installed in the vi
 * The bot is run under its own user account (*errbot*), not as root.
 * SSH is set up to automatically add unknown host keys (*StrictHostKeyChecking no*).
 
+## Local Testing
+
+* Interactive shell testing of bot
+
+```
+ln -s config.py.local config.py
+errbot -T -c config.py
+```
+
+* Most plugins can be tested in their directories by running:
+
+```
+py.test -sv --pep8
+coverage run --source students -m py.test --pep8
+```
+
+

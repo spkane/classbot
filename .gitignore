@@ -1,6 +1,12 @@
 .git
 .vscode
+.coverage
+*.pyc
+work/
 config.py*
 data/
+**/.pytest_cache
+**/htmlcov
+**/.cache
 **/__pycache__
 !data/.git_keep

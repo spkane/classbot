@@ -1,5 +1,6 @@
 from errbot import BotPlugin, botcmd, arg_botcmd
 
+
 class Students(BotPlugin):
     """'Student' plugin for Errbot"""
 

@@ -1,0 +1,30 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+"errbot" = {git = "https://github.com/errbotio/errbot", ref = "master"}
+"sleekxmpp" = "*"
+"pyasn1" = "*"
+"pyasn1-modules" = "*"
+"irc" = "*"
+"hypchat" = "*"
+"python-slackclient" = {git = "https://github.com/slackhq/python-slackclient", ref = "master"}
+"python-telegram-bot" = "*"
+"dnspython3" = "*"
+
+
+[dev-packages]
+
+"coverage" = "*"
+"pep8" = "*"
+"pytest" = "*"
+"pytest-pep8" ="*"
+
+[requires]
+
+python_version = "3.6"

@@ -6,6 +6,7 @@ RUN /entrypoint.sh \
   -p pipenv \
   -p https://github.com/errbotio/errbot/archive/master.zip \
   -p sleekxmpp \
+  -p dnspython3 \
   -p pyasn1 \
   -p pyasn1-modules \
   -p irc \
