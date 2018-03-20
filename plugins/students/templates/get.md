@@ -1,0 +1,1 @@
+{% if group %} your Student ID is: **{{ sid }}**{% else %}**{{ user }}**, your Student ID is: **{{ sid }}**{% endif %}

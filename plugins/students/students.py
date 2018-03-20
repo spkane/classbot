@@ -9,7 +9,7 @@ class Students(BotPlugin):
         if self['sid'] is None:
             self['sid'] = 0
 
-    @botcmd
+    @botcmd(template='get')
     def sid_get(self, msg, args):
         """ gets a new Student ID
         """
@@ -17,12 +17,16 @@ class Students(BotPlugin):
         num += 1
         self.log.info("Student ID for " + format(msg.frm) + " set to: " + str(num))
         self['sid'] = num
-        return format(msg.frm) + ", your Student ID is: " + str(self['sid'])
+        # Before we used the template we did this:
+        #return format(msg.frm) + ", your Student ID is: " + str(self['sid'])
+        return {'group': msg.is_group, 'user': format(msg.frm), 'sid': str(self['sid'])}
 
-    @arg_botcmd('-n', dest='num', type=int, default=0)
+    @arg_botcmd('-n', dest='num', type=int, default=0, template='reset')
     def sid_reset(self, msg, num=None):
         """ resets the Student ID to a specific value
         """
         self['sid'] = num
         self.log.info(format(msg.frm) + " reset Student ID to: " + str(num))
-        return "Student ID base reset to: " + str(self['sid'])
+        # Before we used the template we did this:
+        #return "Student ID base reset to: " + str(self['sid'])
+        return {'group': msg.is_group, 'user': format(msg.frm), 'sid': str(self['sid'])}

@@ -1,0 +1,1 @@
+{% if group %} reset Student ID base to: **{{ sid }}**{% else %}**{{ user }}** reset Student ID base to: **{{ sid }}**{% endif %}
