@@ -5,19 +5,24 @@ class Students(BotPlugin):
     """'Student' plugin for Errbot"""
 
     def activate(self):
-        self.sid = 0
         super().activate()
+        if self['sid'] is None:
+            self['sid'] = 0
 
     @botcmd
     def sid_get(self, msg, args):
         """ gets a new Student ID
         """
-        self.sid += 1
-        return format(msg.frm) + ", your Student ID is: " + str(self.sid)
+        num = self['sid']
+        num += 1
+        self.log.info("Student ID for " + format(msg.frm) + " set to: " + str(num))
+        self['sid'] = num
+        return format(msg.frm) + ", your Student ID is: " + str(self['sid'])
 
-    @arg_botcmd('-n', dest='number', type=int, default=0)
-    def sid_reset(self, msg, number=None):
+    @arg_botcmd('-n', dest='num', type=int, default=0)
+    def sid_reset(self, msg, num=None):
         """ resets the Student ID to a specific value
         """
-        self.sid = number
-        return "Student ID base reset to: " + str(self.sid)
+        self['sid'] = num
+        self.log.info(format(msg.frm) + " reset Student ID to: " + str(num))
+        return "Student ID base reset to: " + str(self['sid'])
