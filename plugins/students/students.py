@@ -38,7 +38,7 @@ class Students(BotPlugin):
     def sid_get(self, msg, args):
         """ gets a new Student ID
         """
-        num = self['sid']
+        num = int(self['sid'])
         num += 1
         self.log.info("Student ID for " + format(msg.frm) + " set to: " + str(num))
         self['sid'] = num
@@ -48,10 +48,17 @@ class Students(BotPlugin):
             user = msg.frm
         return {'user': format(user), 'sid': str(self['sid'])}
 
-    @arg_botcmd('-n', dest='num', type=int, default=0, template='reset')
-    def sid_reset(self, msg, num=None):
+    @botcmd(split_args_with=None, template='reset')
+    def sid_reset(self, msg, args):
         """ resets the Student ID to a specific value
         """
+        if len(args) == 0:
+            num = 0
+        else:
+            try:
+                num = int(args[0])
+            except:
+                return str(msg.frm) + " The first argument must be a valid integer."
         self['sid'] = num
         self.log.info(format(msg.frm) + " reset Student ID to: " + str(num))
         if msg.is_group:
@@ -60,12 +67,20 @@ class Students(BotPlugin):
             user = msg.frm
         return {'user': format(user), 'sid': str(self['sid'])}
 
-    @arg_botcmd('-c', dest='classid', type=str, default="0", template='prep')
-    def class_prep(self, msg, classid):
+    @botcmd(split_args_with=None, template='prep')
+    def class_prep(self, msg, args):
         """ posts the preperation directions to the channel
         """
         if self.check_config() == False:
-            return str(msg.frm) + "You must configure this plugin. Try `!plugin config Students`"
+            return str(msg.frm) + " You must configure this plugin. Try `!plugin config Students`"
+        if len(args) == 0:
+            return str(msg.frm) + " You must pass in a valid class id (i.e. dc1)."
+        else:
+            classid = args[0]
+            if len(args) <= 1:
+                broadcast = False
+            else:
+                broadcast = True
         if classid == "dc1":
             gist = self.config['DC1_GIST_S1']
         elif classid == "dc2":
@@ -74,14 +89,22 @@ class Students(BotPlugin):
             gist = self.config['DW1_GIST_S1']
         else:
             return str(msg.frm) + ", this class ID is unknown: " + str(classid)
-        return {'setup': gist}
+        return {'broadcast': broadcast, 'setup': gist}
 
-    @arg_botcmd('-c', dest='classid', type=str, default="0", template='intro')
-    def class_intro(self, msg, classid):
+    @botcmd(split_args_with=None, template='intro')
+    def class_intro(self, msg, args):
         """ posts the daily intro to the channel
         """
         if self.check_config() == False:
-            return str(msg.frm) + "You must configure this plugin. Try `!plugin config Students`"
+            return str(msg.frm) + " You must configure this plugin. Try `!plugin config Students`"
+        if len(args) == 0:
+            return str(msg.frm) + " You must pass in a valid class id with day marker (i.e. dc1-1)."
+        else:
+            classid = args[0]
+            if len(args) <= 1:
+                broadcast = False
+            else:
+                broadcast = True
         token = self.config['TOKEN']
         if classid == "dc1-1":
             gist1 = self.config['DC1_GIST_S1']
@@ -109,4 +132,4 @@ class Students(BotPlugin):
             day = "Two"
         else:
             return str(msg.frm) + ", this class ID is unknown: " + classid
-        return {'classid': classid, 'setup': gist1, 'follow': gist2, 'day': day, 'token': token}
+        return {'broadcast': broadcast, 'classid': classid, 'setup': gist1, 'follow': gist2, 'day': day, 'token': token}
