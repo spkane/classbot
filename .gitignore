@@ -4,9 +4,12 @@
 *.pyc
 work/
 config.py*
+notes.txt
 data/
+dev/data
 **/.pytest_cache
 **/htmlcov
 **/.cache
 **/__pycache__
 !data/.git_keep
+!dev/data/.git_keep
